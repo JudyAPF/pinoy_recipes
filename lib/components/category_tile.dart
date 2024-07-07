@@ -3,24 +3,29 @@ import 'package:pinoy_recipes/screens/recipe_listing.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CategoryTile extends StatelessWidget {
+class CategoryTile extends StatefulWidget {
   CategoryTile({super.key, required this.category});
 
   Category category;
 
   @override
+  State<CategoryTile> createState() => _CategoryTileState();
+}
+
+class _CategoryTileState extends State<CategoryTile> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // ignore: avoid_print
-        print(category.name);
+        print(widget.category.name);
         //open new screen
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) =>
               RecipeListingScreen(
-                category: category,
+                category: widget.category,
               ),
           ),
         );
@@ -29,8 +34,8 @@ class CategoryTile extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              category.color,
-              category.color.withOpacity(0.5),
+              widget.category.color,
+              widget.category.color.withOpacity(0.5),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -39,7 +44,7 @@ class CategoryTile extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(8),
         child: Text(
-          category.name,
+          widget.category.name,
           style: const TextStyle(
             fontSize: 23,
             fontWeight: FontWeight.w300,
